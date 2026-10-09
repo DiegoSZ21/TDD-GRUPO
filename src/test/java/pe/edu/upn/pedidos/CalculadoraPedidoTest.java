@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class CalculadoraPedidoTest {
+
     private final CalculadoraPedido calc = new CalculadoraPedido();
 
     private static BigDecimal soles(String monto) {
