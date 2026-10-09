@@ -9,11 +9,19 @@ import org.junit.jupiter.api.Test;
 class CalculadoraPedidoTest {
     private final CalculadoraPedido calc = new CalculadoraPedido();
 
+    private static BigDecimal soles(String monto) {
+        return new BigDecimal(monto);
+    }
+
+    private static Producto producto(String nombre, String precio, int cantidad) {
+        return new Producto(nombre, soles(precio), cantidad);
+    }
+
     @Test
     void subtotalDeDosProductosSumaSusPrecios() {
         List<Producto> productos = List.of(
-                new Producto("Mouse", new BigDecimal("50.00"), 1),
-                new Producto("Teclado", new BigDecimal("30.00"), 1));
-        assertEquals(new BigDecimal("80.00"), calc.calcularSubtotal(productos));
+                producto("Mouse", "50.00", 1),
+                producto("Teclado", "30.00", 1));
+        assertEquals(soles("80.00"), calc.calcularSubtotal(productos));
     }
 }
