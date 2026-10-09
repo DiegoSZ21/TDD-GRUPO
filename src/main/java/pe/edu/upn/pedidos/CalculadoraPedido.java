@@ -9,10 +9,9 @@ public class CalculadoraPedido {
     private static final BigDecimal TASA_IGV = new BigDecimal("0.18");
 
     public BigDecimal calcularSubtotal(List<Producto> productos) {
-        return productos.stream()
+        return redondear(productos.stream()
                 .map(this::importeDeLinea)
-                .reduce(BigDecimal.ZERO, BigDecimal::add)
-                .setScale(2, RoundingMode.HALF_UP);
+                .reduce(BigDecimal.ZERO, BigDecimal::add));
     }
 
     private BigDecimal importeDeLinea(Producto producto) {
@@ -21,11 +20,14 @@ public class CalculadoraPedido {
 
     public BigDecimal aplicarDescuento(BigDecimal subtotal, BigDecimal porcentaje) {
         BigDecimal descuento = subtotal.multiply(porcentaje).divide(CIEN);
-        return subtotal.subtract(descuento).setScale(2, RoundingMode.HALF_UP);
-
+        return redondear(subtotal.subtract(descuento));
     }
 
     public BigDecimal calcularImpuesto(BigDecimal baseImponible) {
-        return baseImponible.multiply(TASA_IGV).setScale(2, RoundingMode.HALF_UP);
+        return redondear(baseImponible.multiply(TASA_IGV));
+    }
+
+    private BigDecimal redondear(BigDecimal monto) {
+        return monto.setScale(2, RoundingMode.HALF_UP);
     }
 }
