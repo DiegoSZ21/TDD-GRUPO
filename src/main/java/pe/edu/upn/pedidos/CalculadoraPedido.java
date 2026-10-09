@@ -18,9 +18,10 @@ public class CalculadoraPedido {
 
     public BigDecimal calcularSubtotal(List<Producto> productos) {
         productos.forEach(this::validarProducto);
-        return redondear(productos.stream()
+        BigDecimal suma = productos.stream()
                 .map(this::importeDeLinea)
-                .reduce(BigDecimal.ZERO, BigDecimal::add));
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        return redondear(suma);
     }
 
     private BigDecimal importeDeLinea(Producto producto) {
