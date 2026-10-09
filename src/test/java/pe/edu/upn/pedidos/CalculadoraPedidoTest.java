@@ -58,7 +58,7 @@ class CalculadoraPedidoTest {
     void totalRedondeaElIgvADosDecimales() {
         // subtotal 33.33 -> IGV exacto 5.9994 -> se redondea a 6.00 -> total 39.33
         List<Producto> productos = List.of(producto("Lapiz", "11.11", 3));
-        assertEquals(soles("39.33"), calc.calcularTotal(productos, soles("0")));
+        assertEquals(soles("39.33"), calc.calcularTotal(productos));
     }
 
     @Test
