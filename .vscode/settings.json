@@ -1,0 +1,6 @@
+{
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.test.config": { "vmArgs": ["-Dfile.encoding=UTF-8"] },
+  "files.encoding": "utf8",
+  "editor.formatOnSave": true
+}
