@@ -4,8 +4,15 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
+/**
+ * Calcula subtotal, descuento, IGV (18%) y total de un pedido.
+ * Todos los montos son BigDecimal con 2 decimales (HALF_UP).
+ */
 public class CalculadoraPedido {
 
+    private static final String MSG_PRECIO_NEGATIVO = "El precio no puede ser negativo";
+    private static final String MSG_CANTIDAD_INVALIDA = "La cantidad debe ser mayor que cero";
+    private static final String MSG_DESCUENTO_INVALIDO = "El descuento debe estar entre 0 y 100";
     private static final BigDecimal CIEN = new BigDecimal("100");
     private static final BigDecimal TASA_IGV = new BigDecimal("0.18");
 
@@ -45,16 +52,16 @@ public class CalculadoraPedido {
 
     private void validarProducto(Producto producto) {
         if (producto.precio().signum() < 0) {
-            throw new IllegalArgumentException("El precio no puede ser negativo");
+            throw new IllegalArgumentException(MSG_PRECIO_NEGATIVO);
         }
         if (producto.cantidad() <= 0) {
-            throw new IllegalArgumentException("La cantidad debe ser mayor que cero");
+            throw new IllegalArgumentException(MSG_CANTIDAD_INVALIDA);
         }
     }
 
     private void validarPorcentaje(BigDecimal porcentaje) {
         if (porcentaje.signum() < 0 || porcentaje.compareTo(CIEN) > 0) {
-            throw new IllegalArgumentException("El descuento debe estar entre 0 y 100");
+            throw new IllegalArgumentException(MSG_DESCUENTO_INVALIDO);
         }
     }
 }
