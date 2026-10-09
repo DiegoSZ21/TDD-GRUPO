@@ -32,10 +32,9 @@ public class CalculadoraPedido {
     }
 
     public BigDecimal calcularTotal(List<Producto> productos, BigDecimal porcentaje) {
-        BigDecimal subtotal = calcularSubtotal(productos);
-        BigDecimal baseImponible = aplicarDescuento(subtotal, porcentaje);
-        BigDecimal igv = calcularImpuesto(baseImponible);
-        return baseImponible.add(igv).setScale(2, RoundingMode.HALF_UP);
+
+        BigDecimal baseImponible = aplicarDescuento(calcularSubtotal(productos), porcentaje);
+        return redondear(baseImponible.add(calcularImpuesto(baseImponible)));
     }
 
 }
